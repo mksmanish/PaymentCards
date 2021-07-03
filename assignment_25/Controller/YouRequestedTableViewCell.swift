@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol CancelRequest {
+    func cancelRequestParameter(index:Int)
+}
 // This class represets the cell elements of YouRequested
 class YouRequestedTableViewCell: UITableViewCell {
     // MARK: IBOutlets
@@ -15,6 +18,8 @@ class YouRequestedTableViewCell: UITableViewCell {
     @IBOutlet weak var ContentView: UIView!
     @IBOutlet weak var btnCancelOutlet: UIButton!
     @IBOutlet weak var dateOfTransection: UILabel!
+    var index:Int?
+    var delegateRequested:CancelRequest?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,7 +43,7 @@ class YouRequestedTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     // MARK: IBActions
-    @IBAction func btnCancel(_ sender: Any) {
-        
+    @IBAction func btnCancel(_ sender: UIButton) {
+        delegateRequested?.cancelRequestParameter(index: index ?? 0)
     }
 }

@@ -11,7 +11,8 @@ import SwiftyJSON
 
 // this class represents the main viewcontroller
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,CancelRequest{
+   
     // MARK: IBOutlets
     @IBOutlet weak var tblHistory: UITableView!
     var arrHistory = [transactions]()
@@ -24,6 +25,10 @@ class ViewController: UIViewController {
         self.callAPIrouter()
         
     }
+    func cancelRequestParameter(index: Int) {
+        print(index)
+    }
+    
     // function to setUp the UI
     func setupUI() {
         
@@ -153,6 +158,8 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             cell.lblCurrency.text = "₹"
             cell.lblYouPaid.text = "You requested"
             cell.dateOfTransection.text = getDateFromUTC(date: transectionGroup[indexPath.section][indexPath.row].startDate ?? "")
+            cell.index = indexPath.row
+            cell.delegateRequested = self
             cell.selectionStyle = .none
             return cell
             //request and recived condition
